@@ -8,7 +8,10 @@
  - : int = 4
 [*----------------------------------------------------------------------------*)
 
-let rec square = ()
+let square k = k*k
+
+(*square 2 = square(k=2)=k*k(k=2)
+rec je potreben če rekurzija sicer optional*)
 
 (*----------------------------------------------------------------------------*]
  Funkcija [middle_of_triple] vrne srednji element trojice.
@@ -17,7 +20,7 @@ let rec square = ()
  - : bool = false
 [*----------------------------------------------------------------------------*)
 
-let rec middle_of_triple = ()
+let rec middle_of_triple (x,y,z) = y
 
 (*----------------------------------------------------------------------------*]
  Funkcija [starting_element] vrne prvi element danega seznama. V primeru
@@ -27,7 +30,10 @@ let rec middle_of_triple = ()
  - : int = 1
 [*----------------------------------------------------------------------------*)
 
-let rec starting_element = ()
+let rec starting_element list =
+  match list with
+  |[] -> failwith "list is empty"
+  |x :: xs -> x
 
 (*----------------------------------------------------------------------------*]
  Funkcija [multiply] zmnoži vse elemente seznama. V primeru praznega seznama
@@ -37,7 +43,10 @@ let rec starting_element = ()
  - : int = 48
 [*----------------------------------------------------------------------------*)
 
-let rec multiply = ()
+let rec multiply list= 
+  match list with
+  |[] -> 1 (*da nam rekurzija dela nakonc je produkt s tem*)
+  |x :: xs -> x * (multiply xs)
 
 (*----------------------------------------------------------------------------*]
  Napišite funkcijo ekvivalentno python kodi:
@@ -54,7 +63,10 @@ let rec multiply = ()
  - : int list = [-1; 7; 0]
 [*----------------------------------------------------------------------------*)
 
-let rec sum_int_pairs = ()
+let rec sum_int_pairs list =
+  match list with
+  |[] -> []
+  |(x,y)::xs -> x+y::sum_int_pairs xs
 
 (*----------------------------------------------------------------------------*]
  Funkcija [get k list] poišče [k]-ti element v seznamu [list]. Številčenje
@@ -65,7 +77,12 @@ let rec sum_int_pairs = ()
  - : int = 1
 [*----------------------------------------------------------------------------*)
 
-let rec get = ()
+let rec get k list = 
+  match list with
+  |[] -> failwith "too short"
+  |x::xs when k<=0 -> x
+  |x::xs -> get (k-2) xs
+
 
 (*----------------------------------------------------------------------------*]
  Funkcija [double] podvoji pojavitve elementov v seznamu.
@@ -74,7 +91,11 @@ let rec get = ()
  - : int list = [1; 1; 2; 2; 3; 3]
 [*----------------------------------------------------------------------------*)
 
-let rec double = ()
+let rec double list= 
+  match list with
+  |[] -> []
+  |x :: xs -> x::x::double xs
+  (* alternativa => x::xs -> [x;x] @ double xs*)
 
 (*----------------------------------------------------------------------------*]
  Funkcija [insert x k list] na [k]-to mesto seznama [list] vrine element [x].
@@ -86,7 +107,11 @@ let rec double = ()
  - : int list = [1; 0; 0; 0; 0; 0]
 [*----------------------------------------------------------------------------*)
 
-let rec insert = ()
+let rec insert x k list = 
+ match list with
+ |[] -> [x]
+ |y::ys when k <= 0 -> x::y::ys
+ |y::ys -> y::insert x (k-1) ys 
 
 (*----------------------------------------------------------------------------*]
  Funkcija [divide k list] seznam razdeli na dva seznama. Prvi vsebuje prvih [k]
@@ -99,7 +124,16 @@ let rec insert = ()
  - : int list * int list = ([1; 2; 3; 4; 5], [])
 [*----------------------------------------------------------------------------*)
 
-let rec divide = ()
+(*let (left_list, right_list) = divide ??? in *)
+
+let rec divide k list = 
+  match list with
+  |[] -> ([],[])
+  |x::xs when k <= 0 -> ([], x::xs)
+  |x::xs ->
+    let left, right = divide (k-1) xs in
+    (x :: left, right)
+    
 
 (*----------------------------------------------------------------------------*]
  Funkcija [rotate n list] seznam zavrti za [n] mest v levo. Predpostavimo, da
@@ -109,7 +143,10 @@ let rec divide = ()
  - : int list = [3; 4; 5; 1; 2]
 [*----------------------------------------------------------------------------*)
 
-let rec rotate = ()
+let rec rotate n list=
+  let left, right = divide n list in right @ left
+
+(* []->[], x::xs -> if k <=0 then x::xs else rotate (k-1) (xs @ [x])*)
 
 (*----------------------------------------------------------------------------*]
  Funkcija [remove x list] iz seznama izbriše vse pojavitve elementa [x].
