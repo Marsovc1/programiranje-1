@@ -1,4 +1,4 @@
-type geometrijski_objekt =
+  type geometrijski_objekt =
   | Tocka
   | Krog of float
   | Pravokotnik of float * float

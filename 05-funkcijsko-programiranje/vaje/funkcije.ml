@@ -4,8 +4,12 @@
 Namig: Definirajte pomožno funkcijo za obračanje seznamov.
 [*----------------------------------------------------------------------------*)
 
-let rec reverse = ()
-
+let rec reverse list =
+  let rec reverse acc = function
+  |[]->acc
+  |x::xs ->  reverse(x::acc) xs
+  in
+  reverse [] list
 (*----------------------------------------------------------------------------*]
  Funkcija [repeat x n] vrne seznam [n] ponovitev vrednosti [x]. Za neprimerne
  vrednosti [n] funkcija vrne prazen seznam.
@@ -16,8 +20,21 @@ let rec reverse = ()
  - : string list = []
 [*----------------------------------------------------------------------------*)
 
-let rec repeat = ()
+(*
+let rec repeat x n =
+  let rec repeat n acc = 
+    if n = 0 then acc
+    else repeat (n-1) (x::acc)
+  in
+  repeat n [] *)
 
+let rec repeat x n =
+  let rec repeat n acc =
+    match n with
+    |0 -> acc
+    |n -> repeat (n-1) (x::acc)
+  in
+  repeat n [] 
 (*----------------------------------------------------------------------------*]
  Funkcija [range] sprejme število in vrne seznam vseh celih števil od 0 do
  vključno danega števila. Za neprimerne argumente funkcija vrne prazen seznam.
@@ -27,8 +44,13 @@ let rec repeat = ()
  - : int list = [0; 1; 2; 3; 4; 5; 6; 7; 8; 9; 10]
 [*----------------------------------------------------------------------------*)
 
-let rec range = ()
-
+let rec range x =
+  let rec range x acc = 
+    match x with
+    |0 -> (0::acc)
+    |x -> range (x-1) (x::acc)
+in
+range x []
 (*----------------------------------------------------------------------------*]
  Funkcija [map f list] sprejme seznam [list] oblike [x0; x1; x2; ...] in
  funkcijo [f] ter vrne seznam preslikanih vrednosti, torej
@@ -39,8 +61,13 @@ let rec range = ()
  - : int list = [2; 3; 4; 5; 6]
 [*----------------------------------------------------------------------------*)
 
-let rec map = ()
-
+let rec map f list =
+  let rec map f list acc = 
+  match list with
+  |[] -> reverse acc
+  |x::xs -> map f xs ((f x)::acc)
+in
+map f list []
 (*----------------------------------------------------------------------------*]
  Funkcija [map_tlrec] je repno rekurzivna različica funkcije [map].
  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

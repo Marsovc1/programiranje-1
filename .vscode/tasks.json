@@ -12,7 +12,11 @@
             "label": "OCaml",
             "type": "shell",
             "command": "ocaml -init \\\"${file}\\\"",
-            "problemMatcher": []
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         }
     ]
 }

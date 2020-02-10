@@ -1,5 +1,6 @@
 (* Vojne čarodejov se nadaljujejo. *)
 
+
 (* Čarodeji, ki se borijo v vojnah so pripadniki teh treh ras.  *)
 type race = Orc | Hobbit | Human
 
@@ -12,13 +13,21 @@ type race = Orc | Hobbit | Human
 *)
 
 
-type school = ()
+type school = Fire | Necrotic | Angelic
 
 
-type spell = ()
+type spell = 
+| Firewall of Fire
+| Blaze of Fire
+| Resurrect of Necrotic
+| Cripple of Necrotic
+| Renounce of Angelic
+| Banish of Angelic
 
 (* Veščine [skills], ki jih je čarodej osvojil, so seznam vseh urokov,
    ki jih lahko hitro izvede. Definiraj tip `skills'. *)
+
+type skills = ()
 
 
 
@@ -29,12 +38,12 @@ type spell = ()
 type mana = int
 type health = int
 
-type wizard = {name : string; }
+type wizard = {name : string;  hp : health; ability : mana; race : race; skills : skills;}
 
 
 (* Napiši funkcijo ki vsakemu uroku priredi primerno šolo magije. *)
 let school_of_spell = function
-  () -> ()
+  (Firewall) -> (Fire)
 
 (* Glede na tabelo napiši funkcijo, ki uroku priredi količino mane,
    ki jo čarodej potrebuje za izvršitev uroka:

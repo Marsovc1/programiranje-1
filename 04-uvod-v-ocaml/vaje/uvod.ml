@@ -1,4 +1,3 @@
-
 (* ========== Vaja 1: Uvod v OCaml  ========== *)
 
 (*----------------------------------------------------------------------------*]
@@ -146,7 +145,7 @@ let rec divide k list =
 let rec rotate n list=
   let left, right = divide n list in right @ left
 
-(* []->[], x::xs -> if k <=0 then x::xs else rotate (k-1) (xs @ [x])*)
+(* []->[], x::xs -> if k <=0 then x::xs else rotate (k-1) (xs @ [x]) *)
 
 (*----------------------------------------------------------------------------*]
  Funkcija [remove x list] iz seznama izbriše vse pojavitve elementa [x].
@@ -155,7 +154,8 @@ let rec rotate n list=
  - : int list = [2; 3; 2; 3]
 [*----------------------------------------------------------------------------*)
 
-let rec remove = ()
+let rec remove x list =
+  List.filter (fun y -> y != x) list
 
 (*----------------------------------------------------------------------------*]
  Funkcija [is_palindrome] za dani seznam ugotovi ali predstavlja palindrom.
@@ -166,8 +166,16 @@ let rec remove = ()
  # is_palindrome [0; 0; 1; 0];;
  - : bool = false
 [*----------------------------------------------------------------------------*)
+let rec reverse list =
+  let rec reverse acc = function
+  |[]->acc
+  |x::xs ->  reverse(x::acc) xs
+  in
+  reverse [] list
 
-let rec is_palindrome = ()
+let rec is_palindrome list =
+ if reverse list = list then true
+ else false
 
 (*----------------------------------------------------------------------------*]
  Funkcija [max_on_components] sprejme dva seznama in vrne nov seznam, katerega
@@ -178,8 +186,8 @@ let rec is_palindrome = ()
  - : int list = [5; 4; 3; 3; 4]
 [*----------------------------------------------------------------------------*)
 
-let rec max_on_components = ()
-
+let rec max_on_components list1 list2 = ()
+  
 (*----------------------------------------------------------------------------*]
  Funkcija [second_largest] vrne drugo največjo vrednost v seznamu. Pri tem se
  ponovitve elementa štejejo kot ena vrednost. Predpostavimo, da ima seznam vsaj
@@ -189,5 +197,11 @@ let rec max_on_components = ()
  # second_largest [1; 10; 11; 11; 5; 4; 10];;
  - : int = 10
 [*----------------------------------------------------------------------------*)
+let rec max_element list = 
+  match list with
+  |[]->failwith "prazen seznam"
+  |[x]->x
+  |x1::x2::xs-> max_element(max x1 x2 :: xs)
 
-let rec second_largest = ()
+let rec second_largest list = 
+(* poišči max in ga odstrani nato poišči max preostanka *)

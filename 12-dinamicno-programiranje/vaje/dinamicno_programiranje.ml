@@ -1,6 +1,5 @@
 (* ========== Vaje 6: Dinamično programiranje  ========== *)
 
-
 (*----------------------------------------------------------------------------*]
  Požrešna miška se nahaja v zgornjem levem kotu šahovnice. Premikati se sme
  samo za eno polje navzdol ali za eno polje na desno in na koncu mora prispeti

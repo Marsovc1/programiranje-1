@@ -20,11 +20,14 @@
  # dollar_to_euro (Dollar 0.5);;
  - : euro = Euro 0.4305
 [*----------------------------------------------------------------------------*)
+type dollar = Dollar of float
+type euro = Euro of float
 
-
+let dollar_to_euro (Dollar d) = Euro (0.861 *. d)
+let euro_to_dollar (Euro e) = Euro (1.1614 *. e)
 
 (*----------------------------------------------------------------------------*]
- Definirajte tip [currency] kot en vsotni tip z konstruktorji za jen, funt
+ Definirajte tip [currency] kot en vsotni tip s konstruktorji za jen, funt
  in švedsko krono. Nato napišite funkcijo [to_pound], ki primerno pretvori
  valuto tipa [currency] v funte.
 
@@ -34,7 +37,15 @@
  # to_pound (Yen 100.);;
  - : currency = Pound 0.007
 [*----------------------------------------------------------------------------*)
+type currency = 
+| Jen of float
+| Funt of float
+| Krona of float
 
+let to_pound = function
+| Jen j -> 0.00007*.j
+| Funt f -> f
+| Krona k -> 0.08*.k
 
 
 (*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*]
@@ -48,6 +59,7 @@
  x :: xs v Ocamlu).
 [*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*)
 
+
 (*----------------------------------------------------------------------------*]
  Definirajte tip [intbool_list] z konstruktorji za:
   1.) prazen seznam,
@@ -57,6 +69,10 @@
  Nato napišite testni primer, ki bi predstavljal "[5; true; false; 7]".
 [*----------------------------------------------------------------------------*)
 
+type intbool_list =
+|  of list
+| W of int
+| B of bool
 
 
 (*----------------------------------------------------------------------------*]
