@@ -71,7 +71,5 @@ let rec run_game () =
    ko uporabiš datoteko (uporabno pri prevedenih datotekah). *)
 
 (*
-
 let () = run_game ()
-
 *)
