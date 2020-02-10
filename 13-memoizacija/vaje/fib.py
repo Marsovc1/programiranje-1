@@ -9,11 +9,23 @@ from functools import lru_cache
 # Definirajte naivno rekurzivno različico.
 # Omejitev: Prepočasno.
 def fib(n):
+    if n == 0:
+        return 0
+    if n == 1:
+        return 1
+    else:
+        return fib(n-1)+fib(n-2)
 
 # Z uporabo dekoratorja izboljšajte naivno različico.
 # Omejitev: Preseže največjo dovoljeno globino rekurzija za ~350.
-@...
+@lru_cache(maxsize = 350)
 def fib_cache(n):
+    if n == 0:
+        return 0
+    if n == 1:
+        return 1
+    else:
+        return fib(n-1)+fib(n-2)
 
 # Nariši drevo klicov za navadno rekurzivno fib funkcijo pri n=5 in
 # ugotovi kateri podproblemi so klicani večkrat.
